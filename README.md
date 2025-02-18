@@ -256,16 +256,21 @@ MIT
 
 ### Setting up Google Ads API with Test Account
 
-1. **Access Google Ads API Center**
+1. **Access Google Ads API Developer's Console**
 
-   - Log in to your Google Ads account at [ads.google.com](https://ads.google.com)
-   - Click the tools icon (⚙️) > "Setup" > "API Center"
-   - If you don't have an account, create one at [ads.google.com](https://ads.google.com)
+   - Go to [Google Ads API Developer's Console](https://developers.google.com/google-ads/api/docs/first-call/overview)
+   - Click "Get Started"
+   - Sign in with your Google account (no need to create a campaign)
 
 2. **Request Test Account Access**
 
-   - In the API Center, click "Request Test Account"
-   - Fill in basic information about your testing needs
+   - Go to [OAuth Credentials page](https://console.cloud.google.com/apis/credentials)
+   - Create a new project if needed
+   - Enable Google Ads API
+   - Create OAuth 2.0 Client ID
+   - Download the client configuration file
+   - Request a test manager account from [Test Accounts page](https://developers.google.com/google-ads/api/docs/first-call/test-accounts)
+
    - You'll receive a test account with:
      - Pre-approved developer token
      - Test customer ID
@@ -273,30 +278,35 @@ MIT
 
 3. **Get Your Credentials**
 
-   - Developer token (from API Center)
-   - Customer ID (visible in top right of Google Ads interface)
-   - Test account credentials will be provided via email
+   - Developer token (provided with test account)
+   - Test account Customer ID
+   - OAuth2 credentials from your client configuration
+   - No need to create real campaigns or spend money
 
 4. **Test Account Limitations**
 
    - Test accounts are limited to specific API operations
    - No real ads will be served
    - Perfect for development and testing
-   - Available for 90 days (can be extended)
+   - Test accounts don't expire
+   - Comes with pre-populated test data
 
 5. **Using the Test Environment**
 
    - All API calls will be directed to the test environment
    - No risk of affecting real campaigns or spending money
    - Test data is regularly reset
-   - API responses mirror production environment
+   - Use test account endpoints for all API calls
+   - Sample data includes campaigns, ad groups, and ads
 
 6. **Development Workflow**
 
    - Use test account credentials in your `.env` file
+   - Test account format will be: XXX-XXX-XXXX
+   - Use provided test OAuth credentials
    - Develop and test your features
-   - When ready, apply for production access
-   - Migration to production requires minimal changes
+   - All API calls will use test data
+   - No risk of accidental ad spending
 
 ### Common Issues
 
