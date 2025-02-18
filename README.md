@@ -186,15 +186,25 @@ MONGODB_URI=your_mongodb_connection_string
 ## Project Structure
 
 src/
+
 ├── models/ # MongoDB models
+
 │ ├── campaign.ts
+
 │ └── user.ts
+
 ├── services/ # Core services
+
 │ ├── auth.service.ts # Authentication handling
+
 │ ├── googleAds.service.ts # Google Ads API integration
+
 │ └── scheduler.service.ts # Campaign scheduling
+
 ├── types/ # TypeScript type definitions
+
 │ └── index.ts
+
 └── index.ts # Application entry point
 
 ## Core Logic
