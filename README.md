@@ -251,3 +251,114 @@ npm test
 ## License
 
 MIT
+
+## Google Ads API Setup
+
+1. **Create a Google Cloud Project**
+
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the Google Ads API for your project
+
+2. **Configure OAuth Consent Screen**
+
+   - Go to "APIs & Services" > "OAuth consent screen"
+   - Choose "External" user type
+   - Fill in the application name and user support email
+   - Add authorized domains
+   - Add scopes: `https://www.googleapis.com/auth/adwords`
+
+3. **Create OAuth 2.0 Credentials**
+
+   - Go to "APIs & Services" > "Credentials"
+   - Click "Create Credentials" > "OAuth client ID"
+   - Choose "Web application"
+   - Add authorized redirect URIs (e.g., `http://localhost:3000/auth/callback`)
+   - Save your `Client ID` and `Client Secret`
+
+4. **Get Google Ads Developer Token**
+
+   - Go to [Google Ads Manager Account](https://ads.google.com/aw/overview)
+   - Click the tools icon (⚙️) > "Setup" > "API Center"
+   - Apply for a developer token
+   - Once approved, copy your developer token
+
+5. **Get Refresh Token**
+
+   - Use the following URL format to get authorization code:
+
+   ```
+   https://accounts.google.com/o/oauth2/v2/auth?
+   client_id=YOUR_CLIENT_ID&
+   response_type=code&
+   scope=https://www.googleapis.com/auth/adwords&
+   redirect_uri=YOUR_REDIRECT_URI&
+   access_type=offline&
+   prompt=consent
+   ```
+
+   - Exchange the authorization code for refresh token using:
+
+   ```bash
+   curl -d "client_id=YOUR_CLIENT_ID" \
+        -d "client_secret=YOUR_CLIENT_SECRET" \
+        -d "code=AUTHORIZATION_CODE" \
+        -d "grant_type=authorization_code" \
+        -d "redirect_uri=YOUR_REDIRECT_URI" \
+        https://oauth2.googleapis.com/token
+   ```
+
+6. **Get Customer ID**
+   - Log in to your Google Ads account
+   - Click the tools icon (⚙️)
+   - Your customer ID is displayed in the top right (format: XXX-XXX-XXXX)
+
+### Testing the API
+
+1. **Test Environment Setup**
+
+   ```bash
+   # Create a test .env file
+   cp .env.example .env
+
+   # Fill in your credentials
+   GOOGLE_ADS_CLIENT_ID=your_client_id
+   GOOGLE_ADS_CLIENT_SECRET=your_client_secret
+   GOOGLE_ADS_DEVELOPER_TOKEN=your_developer_token
+   GOOGLE_ADS_REFRESH_TOKEN=your_refresh_token
+   GOOGLE_ADS_CUSTOMER_ID=your_customer_id
+   ```
+
+2. **Quick API Test**
+
+   ```bash
+   # Start the development server
+   npm run dev
+
+   # In another terminal, test the API
+   curl http://localhost:3000/api/campaigns
+   ```
+
+3. **Using Google Ads API Test Account**
+   - You can request a test account from Google Ads
+   - This allows testing without affecting real campaigns
+   - Apply for test account access in the Google Ads API Center
+
+### Common Issues
+
+1. **Authentication Errors**
+
+   - Verify OAuth consent screen configuration
+   - Check if refresh token is valid
+   - Ensure correct scopes are enabled
+
+2. **API Access Errors**
+
+   - Confirm developer token is approved
+   - Check if API is enabled in Google Cloud Console
+   - Verify customer ID format
+
+3. **Rate Limiting**
+   - Default quota is 15,000 operations per day
+   - Monitor usage in Google Cloud Console
+   - Request quota increase if needed
