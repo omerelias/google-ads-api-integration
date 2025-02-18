@@ -15,33 +15,83 @@ A TypeScript-based integration with Google Ads API using Gaxios, with MongoDB fo
 
 ### Campaign Schema
 
-typescript
-interface Campaign {
-id: string;
-name: string;
-status: CampaignStatus; // ENABLED, PAUSED, REMOVED
-advertisingChannelType: AdvertisingChannelType; // SEARCH, DISPLAY, VIDEO, SHOPPING
-startDate: string;
-endDate: string;
-scheduledTime?: string; // When to run the campaign
-userId: string; // Reference to the user who owns this campaign
-createdAt: Date;
-updatedAt: Date;
-}
+```typescript
+// MongoDB Schema
+const campaignSchema = new Schema<ICampaign>(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: Object.values(CampaignStatus),
+      required: true,
+    },
+    advertisingChannelType: {
+      type: String,
+      enum: Object.values(AdvertisingChannelType),
+      required: true,
+    },
+    startDate: {
+      type: String,
+      required: true,
+    },
+    endDate: {
+      type: String,
+      required: true,
+    },
+    scheduledTime: {
+      type: String,
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    googleAdsCampaignId: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+```
 
 ### User Schema
 
-typescript
-interface User {
-id: string;
-email: string;
-accessToken: string;
-refreshToken: string;
-tokenExpiry: Date;
-customerId: string;
-createdAt: Date;
-updatedAt: Date;
-}
+```typescript
+// MongoDB Schema
+const userSchema = new Schema<IUser>(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    accessToken: {
+      type: String,
+      required: true,
+    },
+    refreshToken: {
+      type: String,
+      required: true,
+    },
+    tokenExpiry: {
+      type: Date,
+      required: true,
+    },
+    customerId: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+```
 
 ## API Functions
 
@@ -95,7 +145,7 @@ processCampaigns(campaigns: Campaign[]): Promise<void>
 
 1. Clone the repository:
    bash
-   git clone https://github.com/YOUR_USERNAME/google-ads-api-integration.git
+   git clone https://github.com/omerelias/google-ads-api-integration.git
    cd google-ads-api-integration
 
 2. Install dependencies:

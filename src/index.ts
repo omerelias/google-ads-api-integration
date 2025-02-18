@@ -1,6 +1,6 @@
-import { GoogleAdsService } from "./services/googleAds.service";
-import { SchedulerService } from "./services/scheduler.service";
-import { GoogleAdsConfig } from "./types";
+import { GoogleAdsService } from './services/googleAds.service';
+import { SchedulerService } from './services/scheduler.service';
+import { GoogleAdsConfig } from './types';
 
 const config: GoogleAdsConfig = {
   clientId: process.env.GOOGLE_ADS_CLIENT_ID!,
