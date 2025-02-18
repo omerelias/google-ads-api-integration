@@ -259,8 +259,18 @@ MIT
    - Go to [Google Cloud Console](https://console.cloud.google.com/)
    - Create a new project or select an existing one
    - Enable the Google Ads API for your project
+   - Note down your Project Number and Project ID
 
-2. **Configure OAuth Consent Screen**
+2. **Link Google Ads with Google Cloud Project**
+
+   - Log in to your Google Ads account at [ads.google.com](https://ads.google.com)
+   - Click the tools icon (⚙️) in the top right
+   - Under "Setup", click "Linked accounts"
+   - Find "Google Cloud" in the list and click "Details"
+   - Click "Link" and select your Google Cloud project
+   - Verify the link is established
+
+3. **Configure OAuth Consent Screen**
 
    - Go to "APIs & Services" > "OAuth consent screen"
    - Choose "External" user type
@@ -268,7 +278,7 @@ MIT
    - Add authorized domains
    - Add scopes: `https://www.googleapis.com/auth/adwords`
 
-3. **Create OAuth 2.0 Credentials**
+4. **Create OAuth 2.0 Credentials**
 
    - Go to "APIs & Services" > "Credentials"
    - Click "Create Credentials" > "OAuth client ID"
@@ -276,14 +286,19 @@ MIT
    - Add authorized redirect URIs (e.g., `http://localhost:3000/auth/callback`)
    - Save your `Client ID` and `Client Secret`
 
-4. **Get Google Ads Developer Token**
+5. **Get Google Ads Developer Token**
 
    - Go to [Google Ads Manager Account](https://ads.google.com/aw/overview)
    - Click the tools icon (⚙️) > "Setup" > "API Center"
+   - Make sure your Google Cloud project is linked (from step 2)
    - Apply for a developer token
+   - Fill out the application form with:
+     - Your use case
+     - Expected API usage
+     - Company details
    - Once approved, copy your developer token
 
-5. **Get Refresh Token**
+6. **Get Refresh Token**
 
    - Use the following URL format to get authorization code:
 
@@ -308,7 +323,7 @@ MIT
         https://oauth2.googleapis.com/token
    ```
 
-6. **Get Customer ID**
+7. **Get Customer ID**
    - Log in to your Google Ads account
    - Click the tools icon (⚙️)
    - Your customer ID is displayed in the top right (format: XXX-XXX-XXXX)
